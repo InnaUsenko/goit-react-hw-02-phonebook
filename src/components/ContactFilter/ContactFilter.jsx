@@ -4,9 +4,16 @@ class ContactFilter extends Component {
     return (
       <div>
         <h1>Contacts</h1>
+        <h2>Find contacts by name</h2>
+        <input type="text" name="filter" required />
         <ul>
-          <li>jein</li>
-          <li>nane</li>
+          {this.props.contacts.map(elem => {
+            return (
+              <li key={elem.id}>
+                {elem.name}: {elem.number}
+              </li>
+            );
+          })}
         </ul>
       </div>
     );
