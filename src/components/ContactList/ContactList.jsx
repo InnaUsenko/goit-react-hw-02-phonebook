@@ -8,6 +8,9 @@ class ContactList extends Component {
           <h2>Name</h2>
           <input type="text" name="name" required />
           <br />
+          <h2>Number</h2>
+          <input type="tel" name="number" required />
+          <br />
           <button>Add contact</button>
         </div>
       </div>
