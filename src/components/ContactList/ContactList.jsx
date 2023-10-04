@@ -4,15 +4,17 @@ class ContactList extends Component {
     return (
       <div>
         <h1>Phonebook</h1>
-        <div style={{ border: '1px solid' }}>
-          <h2>Name</h2>
-          <input type="text" name="name" required />
+        <form onSubmit={this.props.handleSubmit}>
+          <label htmlFor="name">Name</label>
           <br />
-          <h2>Number</h2>
-          <input type="tel" name="number" required />
+          <input id="name" type="text" name="name" required />
           <br />
-          <button>Add contact</button>
-        </div>
+          <label htmlFor="number">Number</label>
+          <br />
+          <input id="number" type="tel" name="number" required />
+          <br />
+          <button type="submit">Add contact</button>
+        </form>
       </div>
     );
   }

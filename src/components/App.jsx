@@ -16,6 +16,18 @@ class App extends Component {
     number: '',
   };
 
+  addContact = event => {
+    event.preventDefault();
+    const contacts = this.state.contacts;
+    const newContact = {
+      id: nanoid(),
+      name: event.currentTarget.elements.name.value,
+      number: event.currentTarget.elements.number.value,
+    };
+    contacts.push(newContact);
+    this.setState({ contacts });
+  };
+
   render() {
     return (
       <div
@@ -24,7 +36,7 @@ class App extends Component {
           marginLeft: '8px',
         }}
       >
-        <ContactList />
+        <ContactList handleSubmit={this.addContact} />
         <ContactFilter contacts={this.state.contacts} />
       </div>
     );
