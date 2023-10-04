@@ -5,7 +5,12 @@ class ContactFilter extends Component {
       <div>
         <h1>Contacts</h1>
         <h2>Find contacts by name</h2>
-        <input type="text" name="filter" required />
+        <input
+          type="text"
+          name="filter"
+          onChange={this.props.handleFiltering}
+          required
+        />
         <ul>
           {this.props.contacts.map(elem => {
             return (

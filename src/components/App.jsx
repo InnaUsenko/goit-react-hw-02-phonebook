@@ -11,9 +11,7 @@ class App extends Component {
       { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
-    filter: '',
-    name: '',
-    number: '',
+    filter: [],
   };
 
   addContact = event => {
@@ -28,6 +26,26 @@ class App extends Component {
     this.setState({ contacts });
   };
 
+  findContact = event => {
+    const name = event.currentTarget.value;
+    const contacts = this.state.contacts;
+    if (name.length < 1) {
+      this.setState({
+        filter: [],
+      });
+      return;
+    }
+    let fltr = contacts.filter(el => {
+      const curName = el.name;
+      let temp = curName.substr(0, name.length);
+      console.log(name + ' ' + temp);
+      return name.toLowerCase() === temp.toLowerCase();
+    });
+    this.setState({
+      filter: fltr,
+    });
+  };
+
   render() {
     return (
       <div
@@ -37,7 +55,10 @@ class App extends Component {
         }}
       >
         <ContactList handleSubmit={this.addContact} />
-        <ContactFilter contacts={this.state.contacts} />
+        <ContactFilter
+          handleFiltering={this.findContact}
+          contacts={this.state.filter}
+        />
       </div>
     );
   }
