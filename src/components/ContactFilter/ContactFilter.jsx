@@ -3,9 +3,10 @@ class ContactFilter extends Component {
   render() {
     return (
       <div>
-        <h1>Contacts</h1>
-        <h2>Find contacts by name</h2>
+        <label htmlFor="filter">Find contacts by name</label>
+        <br />
         <input
+          id="filter"
           type="text"
           name="filter"
           onChange={this.props.handleFiltering}

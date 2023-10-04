@@ -3,7 +3,6 @@ class ContactList extends Component {
   render() {
     return (
       <div>
-        <h1>Phonebook</h1>
         <form onSubmit={this.props.handleSubmit}>
           <label htmlFor="name">Name</label>
           <br />

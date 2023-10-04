@@ -5,40 +5,40 @@ import ContactFilter from './ContactFilter/ContactFilter';
 
 class App extends Component {
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contacts: [],
     filter: [],
   };
 
   addContact = event => {
     event.preventDefault();
     const contacts = this.state.contacts;
+    const newName = event.currentTarget.elements.name.value;
     const newContact = {
       id: nanoid(),
-      name: event.currentTarget.elements.name.value,
+      name: newName,
       number: event.currentTarget.elements.number.value,
     };
+    const names = contacts.map(elem => elem.name.toLowerCase());
+    if (names.includes(newName.toLowerCase())) {
+      window.alert('The name ' + newName + ' already exists');
+      return;
+    }
     contacts.push(newContact);
-    this.setState({ contacts });
+    this.setState({ contacts: contacts, filter: contacts });
   };
 
   findContact = event => {
     const name = event.currentTarget.value;
     const contacts = this.state.contacts;
-    if (name.length < 1) {
+    if (name.length === 0) {
       this.setState({
-        filter: [],
+        filter: this.state.contacts,
       });
       return;
     }
     let fltr = contacts.filter(el => {
       const curName = el.name;
       let temp = curName.substr(0, name.length);
-      console.log(name + ' ' + temp);
       return name.toLowerCase() === temp.toLowerCase();
     });
     this.setState({
@@ -54,7 +54,9 @@ class App extends Component {
           marginLeft: '8px',
         }}
       >
+        <h1>Phonebook</h1>
         <ContactList handleSubmit={this.addContact} />
+        <h2>Contacts</h2>
         <ContactFilter
           handleFiltering={this.findContact}
           contacts={this.state.filter}
