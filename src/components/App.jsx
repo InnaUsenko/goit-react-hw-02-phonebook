@@ -13,18 +13,21 @@ class App extends Component {
     event.preventDefault();
     const contacts = this.state.contacts;
     const newName = event.currentTarget.elements.name.value;
-    const newContact = {
-      id: nanoid(),
-      name: newName,
-      number: event.currentTarget.elements.number.value,
-    };
     const names = contacts.map(elem => elem.name.toLowerCase());
     if (names.includes(newName.toLowerCase())) {
       window.alert('The name ' + newName + ' already exists');
       return;
     }
+
+    const newContact = {
+      id: nanoid(),
+      name: newName,
+      number: event.currentTarget.elements.number.value,
+    };
+
     contacts.push(newContact);
     this.setState({ contacts: contacts, filter: contacts });
+    event.currentTarget.reset();
   };
 
   findContact = event => {
@@ -46,6 +49,16 @@ class App extends Component {
     });
   };
 
+  deleteContact = event => {
+    const id = event.currentTarget.id;
+    console.log(id);
+    const contacts = this.state.contacts.filter(elem => elem.id !== id);
+    this.setState({
+      contacts: contacts,
+      filter: contacts,
+    });
+  };
+
   render() {
     return (
       <div
@@ -59,6 +72,7 @@ class App extends Component {
         <h2>Contacts</h2>
         <ContactFilter
           handleFiltering={this.findContact}
+          handleDelete={this.deleteContact}
           contacts={this.state.filter}
         />
       </div>

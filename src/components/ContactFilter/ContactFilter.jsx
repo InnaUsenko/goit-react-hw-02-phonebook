@@ -16,7 +16,12 @@ class ContactFilter extends Component {
           {this.props.contacts.map(elem => {
             return (
               <li key={elem.id}>
-                {elem.name}: {elem.number}
+                <span style={{ display: 'line-block', marginRight: 16 }}>
+                  {elem.name}: {elem.number}
+                </span>
+                <button id={elem.id} onClick={this.props.handleDelete}>
+                  Delete
+                </button>
               </li>
             );
           })}
