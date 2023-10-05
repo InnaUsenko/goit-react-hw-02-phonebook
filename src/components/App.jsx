@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
-import ContactList from './ContactList/ContactList';
-import ContactFilter from './ContactFilter/ContactFilter';
+import ContactForm from './ContactForm/ContactForm';
+import { ContactFilter } from './ContactFilter/ContactFilter';
+import { ContactList } from './ContactList/ContactList';
 
 class App extends Component {
   state = {
@@ -68,12 +69,12 @@ class App extends Component {
         }}
       >
         <h1>Phonebook</h1>
-        <ContactList handleSubmit={this.addContact} />
+        <ContactForm handleSubmit={this.addContact} />
         <h2>Contacts</h2>
-        <ContactFilter
-          handleFiltering={this.findContact}
-          handleDelete={this.deleteContact}
+        <ContactFilter handleFiltering={this.findContact} />
+        <ContactList
           contacts={this.state.filter}
+          handleDelete={this.deleteContact}
         />
       </div>
     );
