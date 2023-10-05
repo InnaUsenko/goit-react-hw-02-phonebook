@@ -7,7 +7,7 @@ import { ContactList } from './ContactList/ContactList';
 class App extends Component {
   state = {
     contacts: [],
-    filter: [],
+    filter: '',
   };
 
   addContact = contact => {
@@ -25,25 +25,23 @@ class App extends Component {
     };
 
     contacts.push(newContact);
-    this.setState({ contacts: contacts, filter: contacts });
+    this.setState({ contacts: contacts });
   };
 
-  findContact = event => {
+  setFilter = event => {
     const name = event.currentTarget.value;
-    const contacts = this.state.contacts;
-    if (name.length === 0) {
-      this.setState({
-        filter: this.state.contacts,
-      });
-      return;
-    }
-    let fltr = contacts.filter(el => {
-      const curName = el.name;
-      let temp = curName.substr(0, name.length);
-      return name.toLowerCase() === temp.toLowerCase();
-    });
     this.setState({
-      filter: fltr,
+      filter: name.toLowerCase(),
+    });
+  };
+
+  findContact = () => {
+    const filter = this.state.filter;
+    const contacts = this.state.contacts;
+    return contacts.filter(el => {
+      const curName = el.name;
+      let temp = curName.substr(0, filter.length);
+      return filter.toLowerCase() === temp.toLowerCase();
     });
   };
 
@@ -52,7 +50,6 @@ class App extends Component {
     const contacts = this.state.contacts.filter(elem => elem.id !== id);
     this.setState({
       contacts: contacts,
-      filter: contacts,
     });
   };
 
@@ -67,9 +64,9 @@ class App extends Component {
         <h1>Phonebook</h1>
         <ContactForm addContact={this.addContact} />
         <h2>Contacts</h2>
-        <ContactFilter handleFiltering={this.findContact} />
+        <ContactFilter handleFiltering={this.setFilter} />
         <ContactList
-          contacts={this.state.filter}
+          contacts={this.findContact()}
           handleDelete={this.deleteContact}
         />
       </div>

@@ -21,8 +21,8 @@ class ContactForm extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
-    const { name, number } = this.state;
-    console.log(`name: ${name}, numb: ${number}`);
+    // const { name, number } = this.state;
+    // console.log(`name: ${name}, numb: ${number}`);
     this.props.addContact({ ...this.state });
     this.reset();
   };
