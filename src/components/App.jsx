@@ -10,25 +10,22 @@ class App extends Component {
     filter: [],
   };
 
-  addContact = event => {
-    event.preventDefault();
+  addContact = contact => {
     const contacts = this.state.contacts;
-    const newName = event.currentTarget.elements.name.value;
     const names = contacts.map(elem => elem.name.toLowerCase());
-    if (names.includes(newName.toLowerCase())) {
-      window.alert('The name ' + newName + ' already exists');
+    if (names.includes(contact.name.toLowerCase())) {
+      window.alert('The name ' + contact.name + ' already exists');
       return;
     }
 
     const newContact = {
       id: nanoid(),
-      name: newName,
-      number: event.currentTarget.elements.number.value,
+      name: contact.name,
+      number: contact.number,
     };
 
     contacts.push(newContact);
     this.setState({ contacts: contacts, filter: contacts });
-    event.currentTarget.reset();
   };
 
   findContact = event => {
@@ -52,7 +49,6 @@ class App extends Component {
 
   deleteContact = event => {
     const id = event.currentTarget.id;
-    console.log(id);
     const contacts = this.state.contacts.filter(elem => elem.id !== id);
     this.setState({
       contacts: contacts,
@@ -69,7 +65,7 @@ class App extends Component {
         }}
       >
         <h1>Phonebook</h1>
-        <ContactForm handleSubmit={this.addContact} />
+        <ContactForm addContact={this.addContact} />
         <h2>Contacts</h2>
         <ContactFilter handleFiltering={this.findContact} />
         <ContactList
